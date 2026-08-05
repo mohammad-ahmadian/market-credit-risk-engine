@@ -1,11 +1,9 @@
--- File: src/database/schema.sql
-
 -- 1. Create Metadata Table for Assets
 CREATE TABLE IF NOT EXISTS asset_metadata (
     asset_id SERIAL PRIMARY KEY,
     ticker VARCHAR(20) UNIQUE NOT NULL,
     asset_name VARCHAR(100) NOT NULL,
-    asset_class VARCHAR(50) NOT NULL, -- e.g., 'Equity Index', 'Stock', 'Commodity'
+    asset_class VARCHAR(50) NOT NULL,
     currency VARCHAR(10) NOT NULL DEFAULT 'USD',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -21,19 +19,19 @@ CREATE TABLE IF NOT EXISTS daily_market_data (
     close_price NUMERIC(12, 4),
     adj_close NUMERIC(12, 4) NOT NULL,
     volume BIGINT,
-    log_return NUMERIC(10, 6), -- Pre-computed log return: ln(Pt / Pt-1)
+    log_return NUMERIC(10, 6),
     CONSTRAINT unique_asset_date UNIQUE (asset_id, price_date)
 );
 
--- 3. Create Daily Yield Curve / Interest Rates Table (For Risk & ALM)
+-- 3. Create Daily Yield Curve Table
 CREATE TABLE IF NOT EXISTS daily_interest_rates (
     rate_id SERIAL PRIMARY KEY,
     rate_date DATE NOT NULL,
-    tenor VARCHAR(10) NOT NULL, -- e.g., '3M', '2Y', '10Y'
+    tenor VARCHAR(10) NOT NULL,
     yield_pct NUMERIC(8, 4) NOT NULL,
     CONSTRAINT unique_tenor_date UNIQUE (tenor, rate_date)
 );
 
--- Indexing for fast query performance in Risk Analysis
+-- 4. Create Performance Indexes (FIXED: rate_date used here)
 CREATE INDEX IF NOT EXISTS idx_market_data_asset_date ON daily_market_data(asset_id, price_date);
-CREATE INDEX IF NOT EXISTS idx_rates_tenor_date ON daily_interest_rates(tenor, price_date);
+CREATE INDEX IF NOT EXISTS idx_rates_tenor_date ON daily_interest_rates(tenor, rate_date);
