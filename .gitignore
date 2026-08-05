@@ -216,3 +216,19 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+
+# Local Environment & Secrets
+.env
+
+# Virtual Environment
+venv/
+ENV/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+
+# Data files (keep raw downloads local)
+data/*.csv
