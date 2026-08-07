@@ -1,3 +1,4 @@
+-- ------------------------------------
 -- 1. Create Metadata Table for Assets
 CREATE TABLE IF NOT EXISTS asset_metadata (
     asset_id SERIAL PRIMARY KEY,
@@ -37,7 +38,7 @@ CREATE INDEX IF NOT EXISTS idx_market_data_asset_date ON daily_market_data(asset
 CREATE INDEX IF NOT EXISTS idx_rates_tenor_date ON daily_interest_rates(tenor, rate_date);
 
 
-
+-- ------------------------------------
 -- Create Table for Calculated Portfolio & Asset Risk Metrics
 CREATE TABLE IF NOT EXISTS portfolio_risk_metrics (
     metric_id SERIAL PRIMARY KEY,
@@ -53,3 +54,35 @@ CREATE TABLE IF NOT EXISTS portfolio_risk_metrics (
 
 -- Performance Index for Risk Queries
 CREATE INDEX IF NOT EXISTS idx_risk_metrics_asset_date ON portfolio_risk_metrics(asset_id, calc_date);
+
+
+-- ------------------------------------
+-- 1. Table for GARCH(1,1) Volatility Forecasts
+CREATE TABLE IF NOT EXISTS garch_volatility_forecasts (
+    forecast_id SERIAL PRIMARY KEY,
+    asset_id INT REFERENCES asset_metadata(asset_id) ON DELETE CASCADE,
+    forecast_date DATE NOT NULL,
+    omega NUMERIC(10, 6),
+    alpha NUMERIC(10, 6),
+    beta NUMERIC(10, 6),
+    persistence NUMERIC(10, 6),
+    annualized_volatility NUMERIC(10, 6),
+    garch_var_95 NUMERIC(10, 6),
+    garch_var_99 NUMERIC(10, 6),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_asset_garch_date UNIQUE (asset_id, forecast_date)
+);
+
+-- 2. Table for Portfolio Stress Test Scenarios
+CREATE TABLE IF NOT EXISTS stress_test_results (
+    stress_id SERIAL PRIMARY KEY,
+    scenario_name VARCHAR(100) NOT NULL,
+    calc_date DATE NOT NULL,
+    portfolio_value NUMERIC(15, 2) NOT NULL,
+    stressed_portfolio_value NUMERIC(15, 2) NOT NULL,
+    dollar_loss NUMERIC(15, 2) NOT NULL,
+    percentage_loss NUMERIC(10, 4) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_scenario_date UNIQUE (scenario_name, calc_date)
+);
+
