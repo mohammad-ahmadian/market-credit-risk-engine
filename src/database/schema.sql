@@ -86,3 +86,33 @@ CREATE TABLE IF NOT EXISTS stress_test_results (
     CONSTRAINT unique_scenario_date UNIQUE (scenario_name, calc_date)
 );
 
+-- ------------------------------------
+-- 1. Table for ALM Interest Rate Risk (EVE & NII Shocks)
+CREATE TABLE IF NOT EXISTS alm_interest_rate_risk (
+    alm_id SERIAL PRIMARY KEY,
+    calc_date DATE NOT NULL,
+    rate_shock_bps INT NOT NULL, -- e.g., +200 or -200
+    base_eve_eur NUMERIC(15, 2) NOT NULL,
+    stressed_eve_eur NUMERIC(15, 2) NOT NULL,
+    eve_change_eur NUMERIC(15, 2) NOT NULL,
+    eve_change_pct NUMERIC(10, 4) NOT NULL,
+    nii_impact_eur NUMERIC(15, 2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_alm_date_shock UNIQUE (calc_date, rate_shock_bps)
+);
+
+-- 2. Table for VaR Backtesting Results (Basel Traffic Light)
+CREATE TABLE IF NOT EXISTS var_backtest_results (
+    backtest_id SERIAL PRIMARY KEY,
+    asset_id INT REFERENCES asset_metadata(asset_id) ON DELETE CASCADE,
+    confidence_level NUMERIC(4, 2) NOT NULL,
+    total_days INT NOT NULL,
+    expected_exceptions NUMERIC(6, 2) NOT NULL,
+    actual_exceptions INT NOT NULL,
+    exception_rate NUMERIC(6, 4) NOT NULL,
+    basel_zone VARCHAR(20) NOT NULL, -- 'Green', 'Yellow', 'Red'
+    calc_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_backtest_asset_conf UNIQUE (asset_id, confidence_level, calc_date)
+);
+
