@@ -1,0 +1,69 @@
+// ====================================================================
+// DAX MEASURE LIBRARY FOR POWER BI RISK OFFICER DASHBOARD
+// ====================================================================
+
+// 1. Portfolio & Price Metrics
+[Latest Close Price] = 
+CALCULATE(
+    MAX(vw_daily_market_overview[close_price]),
+    LASTDATE(vw_daily_market_overview[price_date])
+)
+
+[Daily Return %] = 
+AVERAGE(vw_daily_market_overview[return_pct]) / 100
+
+[Annualized Volatility %] = 
+STDEV.S(vw_daily_market_overview[return_pct]) * SQRT(252)
+
+// 2. Risk Metrics (VaR & Expected Shortfall)
+[Historical VaR 95%] = 
+CALCULATE(
+    MAX(vw_portfolio_risk_summary[historical_var_pct]),
+    vw_portfolio_risk_summary[confidence_level] == 0.95
+)
+
+[Historical VaR 99%] = 
+CALCULATE(
+    MAX(vw_portfolio_risk_summary[historical_var_pct]),
+    vw_portfolio_risk_summary[confidence_level] == 0.99
+)
+
+[Expected Shortfall 99%] = 
+CALCULATE(
+    MAX(vw_portfolio_risk_summary[expected_shortfall_pct]),
+    vw_portfolio_risk_summary[confidence_level] == 0.99
+)
+
+[GARCH Volatility %] = 
+MAX(vw_portfolio_risk_summary[garch_ann_vol_pct])
+
+// 3. Stress Test & ALM Metrics
+[Max Stress Scenario Loss EUR] = 
+MAX(vw_stress_test_reporting[dollar_loss])
+
+[Max Stress Scenario Loss %] = 
+MAX(vw_stress_test_reporting[percentage_loss])
+
+[EVE Sensitivity (+200bps) %] = 
+CALCULATE(
+    MAX(vw_alm_rate_risk_reporting[eve_change_pct]),
+    vw_alm_rate_risk_reporting[rate_shock_bps] == 200
+)
+
+[NII Impact (+200bps) EUR] = 
+CALCULATE(
+    MAX(vw_alm_rate_risk_reporting[nii_impact_eur]),
+    vw_alm_rate_risk_reporting[rate_shock_bps] == 200
+)
+
+// 4. KPI Status Colors for Power BI Conditional Formatting
+[Basel Status Indicator] = 
+VAR Zone = SELECTEDVALUE(vw_backtest_basel_summary[basel_zone])
+RETURN
+    SWITCH(
+        TRUE(),
+        Zone = "Green", "#2ECC71",  // Green Hex Code
+        Zone = "Yellow", "#F1C40F", // Yellow Hex Code
+        Zone = "Red", "#E74C3C",    // Red Hex Code
+        "#BDC3C7"
+    )
