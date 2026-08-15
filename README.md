@@ -27,19 +27,19 @@ Eine durchgängige (End-to-End) Pipeline zur Analyse von Markt- und Kreditrisike
 
 ---
 
-## 📊 Power BI Dashboard Previews
+## 📊 Power BI Dashboard-Vorschau
 
-### Page 1: Executive Portfolio & Market Risk Overview
-![Portfolio Risk Overview](reports/page1_portfolio_overview.png)
+### Seite 1: Executive Portfolio- & Marktrisikoübersicht
+![Portfolio-Risikoübersicht](reports/page1_portfolio_overview.png)
 
-### Page 2: Stress Testing & Scenario Analysis (Basel III)
-![Stress Testing](reports/page2_stress_testing.png)
+### Seite 2: Stresstesting & Szenarioanalyse (Basel III)
+![Stresstesting](reports/page2_stress_testing.png)
 
-### Page 3: Asset Liability Management (ALM) & Interest Rate Risk
-![ALM Risk Sensitivity](reports/page3_alm_interest_rate_risk.png)
+### Seite 3: Asset Liability Management (ALM) & Zinsänderungsrisiko
+![ALM-Risikosensitivität](reports/page3_alm_interest_rate_risk.png)
 
-### Page 4: Model Backtesting & Basel III Traffic Light System
-![Basel Model Backtesting](reports/page4_model_backtesting.png)
+### Seite 4: Modell-Backtesting & Basel III Ampelsystem
+![Basel Modell-Backtesting](reports/page4_model_backtesting.png)
 ---
 
 ## 🇬🇧 English: Project Overview
