@@ -71,7 +71,7 @@ SELECT
     END AS shock_label
 FROM alm_interest_rate_risk;
 
--- View 5: Basel III VaR Model Backtesting & Traffic Light Status
+-- View 5: Basel III VaR Model Backtesting (Filters for Latest Run Only)
 CREATE OR REPLACE VIEW vw_backtest_basel_summary AS
 SELECT 
     b.backtest_id,
@@ -85,4 +85,5 @@ SELECT
     b.basel_zone,
     b.calc_date
 FROM var_backtest_results b
-JOIN asset_metadata a ON b.asset_id = a.asset_id;
+JOIN asset_metadata a ON b.asset_id = a.asset_id
+WHERE b.calc_date = (SELECT MAX(calc_date) FROM var_backtest_results);

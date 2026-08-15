@@ -42,3 +42,19 @@ An end-to-end Market and Credit Risk Analytics Engine designed for multi-asset p
 * **Database**: PostgreSQL 16 (Star Schema, B-Tree Indexing, Referential Integrity)
 * **Programming**: Python 3.11 (`Pandas`, `NumPy`, `Statsmodels`, `SQLAlchemy`, `Arch`)
 * **BI & Analytics**: Power BI Desktop (DAX, Risk Metrics Visualization)
+
+---
+
+## 📊 Power BI Dashboard Previews
+
+### Page 1: Executive Portfolio & Market Risk Overview
+![Portfolio Risk Overview](reports/page1_portfolio_overview.png)
+
+### Page 2: Stress Testing & Scenario Analysis (Basel III)
+![Stress Testing](reports/page2_stress_testing.png)
+
+### Page 3: Asset Liability Management (ALM) & Interest Rate Risk
+![ALM Risk Sensitivity](reports/page3_alm_interest_rate_risk.png)
+
+### Page 4: Model Backtesting & Basel III Traffic Light System
+![Basel Model Backtesting](reports/page4_model_backtesting.png)

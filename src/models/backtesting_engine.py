@@ -11,15 +11,15 @@ from src.database.db_connection import get_db_engine
 
 class VaRBacktestingEngine:
     """
-    Backtests VaR predictions against actual daily losses and evaluates model
-    validity using the Basel III Traffic Light System (Green, Yellow, Red).
+    Backtests VaR predictions over the 250-day Basel III observation window
+    and evaluates model validity using the Traffic Light System (Green, Yellow, Red).
     """
 
     def __init__(self):
         self.engine = get_db_engine()
 
-    def run_backtest(self):
-        """Compares actual log returns against historical VaR estimates."""
+    def run_backtest(self, window_days=250):
+        """Compares actual log returns against VaR estimates over recent 250 trading days."""
         query = """
             SELECT 
                 r.asset_id,
@@ -39,23 +39,26 @@ class VaRBacktestingEngine:
         results = []
         latest_date = datetime.now().strftime('%Y-%m-%d')
 
-        print("\n🚦 Running Basel III VaR Model Backtesting...")
+        print(f"\n🚦 Running Basel III VaR Model Backtesting ({window_days}-Day Window)...")
 
         for (asset_id, ticker, conf), group in df.groupby(['asset_id', 'ticker', 'confidence_level']):
-            total_days = len(group)
+            # Filter for the most recent 250 trading days (Basel III 1-Year Window)
+            recent_group = group.sort_values('calc_date').tail(window_days)
+            total_days = len(recent_group)
+            
             if total_days == 0:
                 continue
 
             # Actual loss occurs when log_return < 0. Breach occurs if -log_return > VaR
-            actual_losses = -group['log_return']
-            var_thresholds = group['historical_var']
+            actual_losses = -recent_group['log_return']
+            var_thresholds = recent_group['historical_var']
             
             # Count exceptions (breaches)
             exceptions = int((actual_losses > var_thresholds).sum())
             expected_exceptions = total_days * (1.0 - conf)
             exception_rate = exceptions / total_days
 
-            # Assign Basel Traffic Light Zone (for 99% VaR over ~250 days standard)
+            # Assign Basel Traffic Light Zone (for 250-day window)
             if conf == 0.99:
                 if exceptions <= 4:
                     zone = "Green"
@@ -64,7 +67,7 @@ class VaRBacktestingEngine:
                 else:
                     zone = "Red"
             else:
-                # 95% VaR Basel adjustment (~12.5 expected exceptions per 250 days)
+                # 95% VaR (12.5 expected exceptions per 250 days)
                 if exceptions <= 15:
                     zone = "Green"
                 elif 16 <= exceptions <= 22:
@@ -112,4 +115,4 @@ class VaRBacktestingEngine:
 
 if __name__ == "__main__":
     backtester = VaRBacktestingEngine()
-    backtester.run_backtest()
+    backtester.run_backtest(window_days=250)
