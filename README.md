@@ -5,7 +5,7 @@
 
 ---
 
-## 🇩🇪 Deutsch: Projektübersicht
+## Deutsch: Projektübersicht
 
 ### Beschreibung
 Eine durchgängige (End-to-End) Pipeline zur Analyse von Markt- und Kreditrisiken für Multi-Asset-Portfolios. Das System lädt automatisiert historische Marktdaten und Zinsstrukturkurven in eine **PostgreSQL**-Datenbank, berechnet Risiko-Kennzahlen (**Value-at-Risk**, **Expected Shortfall**, **GARCH(1,1)**) in **Python** und visualisiert Risikogrenzen sowie Stresstests in einem interaktiven **Power BI Dashboard**.
@@ -25,7 +25,22 @@ Eine durchgängige (End-to-End) Pipeline zur Analyse von Markt- und Kreditrisike
 
 ---
 
-## 🇬🇧 English: Project Overview
+## 📊 Power BI Dashboard Previews
+
+### Page 1: Executive Portfolio & Market Risk Overview
+![Portfolio Risk Overview](reports/page1_portfolio_overview.png)
+
+### Page 2: Stress Testing & Scenario Analysis (Basel III)
+![Stress Testing](reports/page2_stress_testing.png)
+
+### Page 3: Asset Liability Management (ALM) & Interest Rate Risk
+![ALM Risk Sensitivity](reports/page3_alm_interest_rate_risk.png)
+
+### Page 4: Model Backtesting & Basel III Traffic Light System
+![Basel Model Backtesting](reports/page4_model_backtesting.png)
+---
+
+## English: Project Overview
 
 ### Description
 An end-to-end Market and Credit Risk Analytics Engine designed for multi-asset portfolios. The pipeline automatically ingests daily market prices and treasury yield curves into a **PostgreSQL** database, computes quantitative risk metrics (**Value-at-Risk**, **Expected Shortfall**, **GARCH(1,1)**) using **Python**, and reports risk limit breaches and stress testing scenarios via an interactive **Power BI Dashboard**.
@@ -43,18 +58,3 @@ An end-to-end Market and Credit Risk Analytics Engine designed for multi-asset p
 * **Programming**: Python 3.11 (`Pandas`, `NumPy`, `Statsmodels`, `SQLAlchemy`, `Arch`)
 * **BI & Analytics**: Power BI Desktop (DAX, Risk Metrics Visualization)
 
----
-
-## 📊 Power BI Dashboard Previews
-
-### Page 1: Executive Portfolio & Market Risk Overview
-![Portfolio Risk Overview](reports/page1_portfolio_overview.png)
-
-### Page 2: Stress Testing & Scenario Analysis (Basel III)
-![Stress Testing](reports/page2_stress_testing.png)
-
-### Page 3: Asset Liability Management (ALM) & Interest Rate Risk
-![ALM Risk Sensitivity](reports/page3_alm_interest_rate_risk.png)
-
-### Page 4: Model Backtesting & Basel III Traffic Light System
-![Basel Model Backtesting](reports/page4_model_backtesting.png)
