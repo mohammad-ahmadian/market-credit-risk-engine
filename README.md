@@ -7,7 +7,7 @@
 > 🇩🇪 **[Zur deutschen Version springen](#-deutsch-projektübersicht)** | 🇬🇧 **[Jump to English Version](#-english-project-overview)**
 
 ---
-## Deutsch: Projektübersicht (English Version Below)
+## 🇩🇪 Deutsch: Projektübersicht
 
 ### Beschreibung
 Eine durchgängige (End-to-End) Pipeline zur Analyse von Markt- und Kreditrisiken für Multi-Asset-Portfolios. Das System lädt automatisiert historische Marktdaten und Zinsstrukturkurven in eine **PostgreSQL**-Datenbank, berechnet Risiko-Kennzahlen (**Value-at-Risk**, **Expected Shortfall**, **GARCH(1,1)**) in **Python** und visualisiert Risikogrenzen sowie Stresstests in einem interaktiven **Power BI Dashboard**.
@@ -42,7 +42,7 @@ Eine durchgängige (End-to-End) Pipeline zur Analyse von Markt- und Kreditrisike
 ![Basel Model Backtesting](reports/page4_model_backtesting.png)
 ---
 
-## English: Project Overview
+## 🇬🇧 English: Project Overview
 
 ### Description
 An end-to-end Market and Credit Risk Analytics Engine designed for multi-asset portfolios. The pipeline automatically ingests daily market prices and treasury yield curves into a **PostgreSQL** database, computes quantitative risk metrics (**Value-at-Risk**, **Expected Shortfall**, **GARCH(1,1)**) using **Python**, and reports risk limit breaches and stress testing scenarios via an interactive **Power BI Dashboard**.
