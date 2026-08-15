@@ -4,8 +4,10 @@
 [![PowerBI](https://img.shields.io/badge/Power_BI-Dashboard-F2C811?style=flat&logo=powerbi&logoColor=black)](#)
 
 ---
+> 🇩🇪 **[Zur deutschen Version springen](#-deutsch-projektübersicht)** | 🇬🇧 **[Jump to English Version](#-english-project-overview)**
 
-## Deutsch: Projektübersicht
+---
+## Deutsch: Projektübersicht (English Version Below)
 
 ### Beschreibung
 Eine durchgängige (End-to-End) Pipeline zur Analyse von Markt- und Kreditrisiken für Multi-Asset-Portfolios. Das System lädt automatisiert historische Marktdaten und Zinsstrukturkurven in eine **PostgreSQL**-Datenbank, berechnet Risiko-Kennzahlen (**Value-at-Risk**, **Expected Shortfall**, **GARCH(1,1)**) in **Python** und visualisiert Risikogrenzen sowie Stresstests in einem interaktiven **Power BI Dashboard**.
@@ -58,3 +60,18 @@ An end-to-end Market and Credit Risk Analytics Engine designed for multi-asset p
 * **Programming**: Python 3.11 (`Pandas`, `NumPy`, `Statsmodels`, `SQLAlchemy`, `Arch`)
 * **BI & Analytics**: Power BI Desktop (DAX, Risk Metrics Visualization)
 
+---
+
+## 📊 Power BI Dashboard Previews
+
+### Page 1: Executive Portfolio & Market Risk Overview
+![Portfolio Risk Overview](reports/page1_portfolio_overview.png)
+
+### Page 2: Stress Testing & Scenario Analysis (Basel III)
+![Stress Testing](reports/page2_stress_testing.png)
+
+### Page 3: Asset Liability Management (ALM) & Interest Rate Risk
+![ALM Risk Sensitivity](reports/page3_alm_interest_rate_risk.png)
+
+### Page 4: Model Backtesting & Basel III Traffic Light System
+![Basel Model Backtesting](reports/page4_model_backtesting.png)
