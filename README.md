@@ -49,6 +49,8 @@ Eine durchgängige (End-to-End) Pipeline zur Analyse von Markt- und Kreditrisike
 
 ### Seite 4: Modell-Backtesting & Basel III Ampelsystem
 
+![Basel Model Backtesting](reports/page4_model_backtesting.png)
+
 ## 🇬🇧 English: Project Overview
 
 ### Description
